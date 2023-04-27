@@ -1,0 +1,6 @@
+-std=gnu++17
+-I/Users/zoi/Documents/AtCoder/include
+-I/opt/homebrew/include
+-Wall
+-Wextra
+-Wno-deprecated-declarations

@@ -4,6 +4,9 @@
 
 using namespace std;
 
+
+int opened = 0;
+
 void show(int N, vector<vector<int>> *stage) {
   cout << "   ";
   for(int i=0; i<N; i++) {
@@ -47,11 +50,12 @@ string open(int x, int y, int N, vector<vector<int>> *stage) {
     if(y > 0) open(x, y-1, N, stage);
     if(y < N-1) open(x, y+1, N, stage);
   }
+  opened++;
   return "success";
 }
 
 int main() {
-  int bomb_count = 20;
+  int bomb_count = 2;
   int N = 10;
   vector<vector<int>> stage(N, vector<int>(N, -1));
 
@@ -83,6 +87,10 @@ int main() {
       cout << "unknown error" << endl;
     }
     show(N, &stage);
+    if(opened == N * N - bomb_count) {
+      cout << "clear" << endl;
+      return 0;
+    }
   }
   show(N, &stage);
 }

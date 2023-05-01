@@ -26,7 +26,11 @@ void show(int N, vector<vector<int>> *stage) {
 int check(int N, int x, int y, vector<vector<int>> *stage) {
   int result = 0;
   if(y > 0 && (*stage)[x][y-1] == 5) result++;
+  if(y > 0 && x > 0 && (*stage)[x-1][y-1] == 5) result++;
+  if(y > 0 && x < N-1 && (*stage)[x+1][y-1] == 5) result++;
   if(y < N-1 && (*stage)[x][y+1] == 5) result++;
+  if(y < N-1 && x > 0 && (*stage)[x-1][y+1] == 5) result++;
+  if(y < N-1 && x < N-1 && (*stage)[x+1][y+1] == 5) result++;
   if(x > 0 && (*stage)[x-1][y] == 5) result++;
   if(x < N-1 && (*stage)[x+1][y] == 5) result++;
   return result;
@@ -59,6 +63,26 @@ int main() {
     else i--;
   }
   show(N, &stage);
-  cout << open(3, 3, N, &stage) << endl;
+  while(true) {
+    cout << "enter x, y: ";
+    int x, y;
+    cin >> x >> y;
+    x--;
+    y--;
+
+    string result = open(x, y, N, &stage);
+    if(result == "game over") {
+      cout << "game over" << endl;
+      break;
+    } else if(result == "error") {
+      cout << "error" << endl;
+      continue;
+    } else if(result == "success") {
+      cout << "success" << endl;
+    } else {
+      cout << "unknown error" << endl;
+    }
+    show(N, &stage);
+  }
   show(N, &stage);
 }

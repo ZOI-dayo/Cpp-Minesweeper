@@ -6,7 +6,12 @@ enum class State {
   BOMB,
 };
 void show(int N, vector<vector<State>> stage) {
+  cout << "  ";
+  for(int x=0; x<N; x++) cout << x+1 << " ";
+  cout << endl;
+
   for(int x=0; x<N; x++) {
+    cout << (char)('a' + x) << " ";
     for(int y=0; y<N; y++) {
       if(stage[x][y] == State::DEFAULT) cout << "- ";
       else if(stage[x][y] == State::OPENED) cout << "  ";
@@ -14,6 +19,11 @@ void show(int N, vector<vector<State>> stage) {
     }
     cout << endl;
   }
+}
+void open(int N, vector<vector<State>> *stage, int x, int y) {
+  if((*stage)[x][y] == State::DEFAULT) (*stage)[x][y] = State::OPENED;
+  else if((*stage)[x][y] == State::OPENED) cout << "opened" << endl;
+  else cout << "game over" << endl;
 }
 int main() {
   int N = 10;
@@ -26,5 +36,7 @@ int main() {
     if (stage[x][y] != State::BOMB) stage[x][y] = State::BOMB;
     else i--;
   }
+  show(N, stage);
+  open(N, &stage, 2, 2);
   show(N, stage);
 }
